@@ -3,6 +3,45 @@ import type { AWS } from '@serverless/typescript';
 import sqsPushEvent from '@functions/sqsPushEvent';
 import sqsTrriger from '@functions/sqsTrriger';
 
+const sqsPushRole = {
+  Type: 'AWS::IAM::Role',
+  Properties: {
+    Path: '/',
+    RoleName: "${self:provider.stage}LambdaSqsPushRole",
+    AssumeRolePolicyDocument: {
+      Version: '2012-10-17',
+      Statement: [
+        {
+          Effect: 'Allow',
+          Principal: {
+            Service: [
+              'lambda.amazonaws.com'
+            ]
+          },
+          Action: 'sts:AssumeRole'
+        }
+      ]
+    },
+    Policies: [
+      {
+        PolicyName:  "${self:provider.stage}LambdaSqsPushRole",
+        PolicyDocument: {
+          Version: '2012-10-17',
+          Statement: [
+            {
+              Effect: 'Allow',
+              Action: [
+                'sqs:SendMessage'
+              ],
+              Resource: "${file(./src/slscnf/${self:provider.stage}.yml):sqsQuereArn}"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+
 const serverlessConfiguration: AWS = {
   service: 'sqs-event',
   frameworkVersion: '2',
@@ -31,6 +70,9 @@ const serverlessConfiguration: AWS = {
     sqsPushEvent,
     sqsTrriger
   },
+  resources: {
+    Resources: { sqsPushRole }
+  }
 };
 
 module.exports = serverlessConfiguration;
