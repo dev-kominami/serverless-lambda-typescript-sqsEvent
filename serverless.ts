@@ -1,6 +1,7 @@
 import type { AWS } from '@serverless/typescript';
 
 import sqsPushEvent from '@functions/sqsPushEvent';
+import sqsTrriger from '@functions/sqsTrriger';
 
 const serverlessConfiguration: AWS = {
   service: 'sqs-event',
@@ -22,7 +23,10 @@ const serverlessConfiguration: AWS = {
     lambdaHashingVersion: '20201221',
   },
   // import the function via paths
-  functions: { sqsPushEvent },
+  functions: { 
+    sqsPushEvent,
+    sqsTrriger
+  },
 };
 
 module.exports = serverlessConfiguration;

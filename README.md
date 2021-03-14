@@ -9,3 +9,7 @@ SQSからイベントをトリガーするLambdaのサンプル
 ```
 sls invoke local -f sqsPushEvent -p src/functions/sqsPushEvent/mock.json --aws-profile {プロファイル} -e sqsQuereUrl={sqsのURL}
 ```
+
+## 注意
+serverlessは新しいSQS QUEUEを作成せず、
+既存のSQSにイベントを設定する
