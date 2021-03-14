@@ -11,6 +11,10 @@ const serverlessConfiguration: AWS = {
       webpackConfig: './webpack.config.js',
       includeModules: true,
     },
+    env: {
+      sqsQuereUrl: "${file(./src/slscnf/${self:provider.stage}.yml):sqsQuereUrl}",
+      sqsQuereArn: "${file(./src/slscnf/${self:provider.stage}.yml):sqsQuereArn}"
+    }
   },
   plugins: ['serverless-webpack'],
   provider: {

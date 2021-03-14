@@ -4,7 +4,7 @@ export default {
   handler: `${handlerPath(__dirname)}/handler.main`,
   events: [
     {
-      sqs: "{your sqs queue arn}"
+      sqs: "${self:custom.env.sqsQuereArn}"
     }
   ]
 }

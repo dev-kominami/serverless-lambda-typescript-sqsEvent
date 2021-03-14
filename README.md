@@ -2,6 +2,16 @@
 SQSへのメッセージ追加と、
 SQSからイベントをトリガーするLambdaのサンプル
 
+## 環境変数を指定する
+slscnf/のymlファイルに環境変数を指定する
+ファイルはstageごとに作成する
+例）--stage devの場合dev.ymlを参照する
+
+```
+sqsQuereUrl: xxxxx
+sqsQuereArn: xxxxx
+```
+
 ## ローカルで実行する場合
 ### sqsPushEvent
 ローカルで実行する場合は環境変数でsqs queueのURLを指定して実行する
